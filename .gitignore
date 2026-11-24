@@ -1,0 +1,12 @@
+__pycache__/
+*.pyc
+venv/
+.venv/
+routing.json
+mix-controls.json
+previous-output.json
+sunshine-audio.txt
+*.log
+route.lock
+stop.request
+dist/
