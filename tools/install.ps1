@@ -29,6 +29,21 @@ if (!(Test-Path "$dst/venv/Scripts/python.exe")) {
 }
 & $uvPath pip install --python "$dst/venv/Scripts/python.exe" --only-binary :all: -r "$src/requirements.txt"
 if ($LASTEXITCODE) {throw 'Python dependencies failed to install.'}
+# uv can supply a console-subsystem shim even for Scripts/pythonw.exe.
+# Install CPython's matching GUI redirector beside this environment.
+$installGuiLauncher = @'
+from pathlib import Path
+from shutil import copyfile
+import sys
+import sysconfig
+
+source = Path(sysconfig.get_path('stdlib')) / 'venv/scripts/nt/venvwlauncher.exe'
+target = Path(sys.prefix) / 'gui/pythonw.exe'
+target.parent.mkdir(exist_ok=True)
+copyfile(source, target)
+'@
+& "$dst/venv/Scripts/python.exe" -c $installGuiLauncher
+if ($LASTEXITCODE) {throw 'Could not install the windowed Python launcher.'}
 foreach ($f in 'launch.py','devices.py','router.py','audio_tone.py','requirements.txt','README.md','LICENSE','NOTICE.md','Check.cmd','Stop.cmd','Test stereo.wav') {
     Copy-Item -LiteralPath "$src/$f" -Destination $dst -Force
 }

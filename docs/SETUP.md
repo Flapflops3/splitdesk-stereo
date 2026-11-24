@@ -35,6 +35,8 @@ Flat, Jazz, Pop, Rock and Vocal are adjustable starting points. EQ is applied on
 
 ## Native build and source run
 
+For desktop and tray use, run `Install.cmd` after building. It installs CPython’s GUI launcher into the environment so opening the mixer does not start a console window.
+
 The distribution includes x64 binaries for the tray launcher and six-section stereo filter. From the repository root, using Zig 0.14.1 on x64 Windows:
 
 ```powershell

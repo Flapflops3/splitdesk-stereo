@@ -82,7 +82,7 @@ int WINAPI wWinMain(HINSTANCE inst, HINSTANCE prev, PWSTR cmd, int show) {
     if (!GetModuleFileNameW(NULL,folder,MAX_PATH) || !wcsrchr(folder,L'\\')) return 1;
     *wcsrchr(folder,L'\\')=0;
     if (wcslen(folder) > MAX_PATH-40) return 1;
-    swprintf(player, MAX_PATH, L"%ls\\..\\venv\\Scripts\\pythonw.exe", folder);
+    swprintf(player, MAX_PATH, L"%ls\\..\\venv\\gui\\pythonw.exe", folder);
     swprintf(args, MAX_PATH+8, L"\"%ls\\..\\launch.py\"", folder);
     WCHAR ico[MAX_PATH];
     swprintf(ico, MAX_PATH,L"%ls\\walnut.ico",folder);
